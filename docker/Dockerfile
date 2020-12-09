@@ -17,7 +17,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Infrastructure files
-COPY docker/resource/yaml2json _infra/build/docker-entrypoint.sh /usr/bin/
+COPY docker/resource/yaml2json /usr/bin/
 COPY docker/resource/mutt /root/.mutt
 
 # Application files
@@ -25,7 +25,7 @@ COPY config.yml helper.sh main.sh /home/src/
 COPY actions /home/src/actions
 
 # ENTRYPOINT
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker/docker-entrypoint.sh /usr/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["help"]
