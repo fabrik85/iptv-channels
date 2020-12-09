@@ -12,12 +12,9 @@ if [[ $(_isSkippedStep "${__STEP}") == "0" ]]; then
 fi
 
 function prepare() {
-    if [[ -d ${LOCAL_DIR} ]]; then
-        __msg_error "Directory '${LOCAL_DIR}' already exists! Please specify non existing directory!"
-        return "${FAILURE}"
+    if [[ ! -d ${LOCAL_DIR} ]]; then
+        mkdir -p ${LOCAL_DIR}
     fi
-
-    mkdir -p ${LOCAL_DIR}
 }
 
 function downloadFromS3() {
@@ -35,4 +32,4 @@ function downloadFromS3() {
 }
 
 prepare
-downloadFromS3 "${S3_PATH}" "${LOCAL_DIR}" "${LOCAL_FILE}"
+downloadFromS3

@@ -1,3 +1,6 @@
+# Action scripts directory.
+export __DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Run without any effect (simulate).
 export DRYRUN=0
 

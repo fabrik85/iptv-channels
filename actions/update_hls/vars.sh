@@ -1,4 +1,4 @@
-S3_DUMP_PATH="s3://bestfabrik.de/iptv/siptv.m3u"
+S3_PATH="s3://bestfabrik.de/iptv/siptv.m3u"
 # e.g. /home/iptv
 LOCAL_DIR="${HOME}/${PROJECT_DIR}"
 LOCAL_FILE="siptv.m3u"
