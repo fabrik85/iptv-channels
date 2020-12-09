@@ -7,6 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # hadolint ignore=DL3015
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        curl=7.58.* \
         python3-pip=9.0.* \
         python3-setuptools=39.0.* \
         jq=1.5+dfsg-2 \

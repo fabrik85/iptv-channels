@@ -9,13 +9,13 @@ function exitWithUsage() {
   echo ""
   echo "SYNOPSIS"
   echo ""
-  echo "Usage: COMMAND [OPTION]"
+  echo "  Usage: COMMAND [OPTION]"
   echo ""
   echo "     create [--dry-run] [--skip-steps]"
   echo "            Create new HLS file."
   echo "     update [--dry-run] [--skip-steps]"
   echo "            Update existing HLS file."
-  echo "     sleep [--second]"
+  echo "     sleep [--sec]"
   echo "            Do nothing else just sleep for x second(s)."
   echo ""
   echo "OPTIONS"
@@ -23,14 +23,14 @@ function exitWithUsage() {
   echo "            Simulate command without any effect."
   echo "     --skip-steps"
   echo "            Skip the defined execute script (step file)."
-  echo "     --second"
+  echo "     --sec"
   echo "            Sleep the defined [x] second(s) (only for 'sleep' command)"
   echo ""
   echo ""
   echo "EXAMPLE"
   echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv create --dry-run"
   echo ""
-  echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv sleep --second=30"
+  echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv sleep --sec=30"
   echo ""
   echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv update --skip-steps=2:3"
   exit 2
@@ -46,7 +46,7 @@ function main() {
   local second
 
   # Process config values.
-  options=$(getopt -n docker-entrypoint -o s:d: --long skip-steps:,second:,dry-run, -- "${@:2}")
+  options=$(getopt -n docker-entrypoint -o s:d: --long skip-steps:,sec:,dry-run, -- "${@:2}")
   valid_arguments=$?
   if [[ "${valid_arguments}" != "0" ]]; then
     exitWithUsage
@@ -64,7 +64,7 @@ function main() {
       -s | --skip-steps)
         skip_steps="${2}" ; shift 2
         ;;
-      --second)
+      --sec)
         second="${2}" ; shift 2
         ;;
       --)
@@ -80,7 +80,6 @@ function main() {
 
   [[ -n "${skip_steps}" ]] && args+=( "--skip-steps=${skip_steps}" )
   [[ -n "${dry_run}" ]] && args+=( "--noop" )
-  [[ -n "${second}" ]] && args+=( "--second=${second}" )
 
   if [[ -z "${AWS_ACCESS_KEY_ID}" ]]; then
     echo "Error: Required environment varibale 'AWS_ACCESS_KEY_ID' was not defined! (e.g. $ docker run -e AWS_ACCESS_KEY_ID=xxx)"
