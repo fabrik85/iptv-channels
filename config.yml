@@ -1,0 +1,38 @@
+actions:
+  - create_hls
+  - update_hls
+
+create_hls:
+  entrypoint: init.sh
+  scripts:
+    - 1_generate.sh
+    - 2_upload.sh
+  cleanup: cleanup.sh
+  notify:
+    at_start: true
+    at_complete: true
+    email:
+      only_on_failure: true
+      list:
+        - iptv@bestfabrik.de
+    slack:
+      only_on_failure: true
+      webhook: https://hooks.slack.com/services/xxx...
+
+update_hls:
+  entrypoint: init.sh
+  scripts:
+    - 1_download.sh
+    - 2_update_euronews.sh
+    - 3_upload.sh
+  cleanup: cleanup.sh
+  notify:
+    at_start: true
+    at_complete: true
+    email:
+      only_on_failure: false
+      list:
+        - iptv@bestfabrik.de
+    slack:
+      only_on_failure: true
+      webhook: https://hooks.slack.com/services/xxx...

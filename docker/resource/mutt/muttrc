@@ -1,0 +1,9 @@
+# E-mail
+set realname = "IPTV"
+set from = "info@bestfabrik.de"
+set use_envelope_from = yes
+
+# Credentials
+set smtp_url = "smtps://{SMTP-USER}@email-smtp.{REGION}.amazonaws.com:465/"
+set smtp_pass = "{SMTP-PASS}"
+set ssl_force_tls = yes
