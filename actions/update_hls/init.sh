@@ -31,6 +31,9 @@ function getConfig() {
 }
 
 function validateConfig() {
+  local -r regexNumber='^[0-9]+$'
+  local skip_steps=()
+
 # --skip-steps
   if [[ -n "${SKIP}" ]]; then
     while IFS='' read -r line; do skip_steps+=("$line"); done < <(echo "${SKIP}" | tr ":" "\n")

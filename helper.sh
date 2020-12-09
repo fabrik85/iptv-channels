@@ -1,5 +1,3 @@
-#!/bin/sh
-
 declare -a SEQUENCE
 declare -A STATUS
 declare -A RUNTIME

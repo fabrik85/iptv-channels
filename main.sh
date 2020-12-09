@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -o errexit  # same as 'set -e' => abort on nonzero exit status
 set -o nounset  # same as 'set -u' => abort on unbound variable

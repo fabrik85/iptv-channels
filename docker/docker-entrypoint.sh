@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 function exitWithUsage() {
   echo "NAME"
@@ -31,6 +31,8 @@ function exitWithUsage() {
   echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv create --dry-run"
   echo ""
   echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv sleep --second=30"
+  echo ""
+  echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv update --skip-steps=2:3"
   exit 2
 }
 
@@ -79,6 +81,36 @@ function main() {
   [[ -n "${skip_steps}" ]] && args+=( "--skip-steps=${skip_steps}" )
   [[ -n "${dry_run}" ]] && args+=( "--noop" )
   [[ -n "${second}" ]] && args+=( "--second=${second}" )
+
+  if [[ -z "${AWS_ACCESS_KEY_ID}" ]]; then
+    echo "Error: Required environment varibale 'AWS_ACCESS_KEY_ID' was not defined! (e.g. $ docker run -e AWS_ACCESS_KEY_ID=xxx)"
+    exit 2
+  fi
+
+  if [[ -z "${AWS_SECRET_ACCESS_KEY}" ]]; then
+    echo "Error: Required environment varibale 'AWS_SECRET_ACCESS_KEY' was not defined! (e.g. $ docker run -e AWS_SECRET_ACCESS_KEY=xxx)"
+    exit 2
+  fi
+
+  if [[ -z "${AWS_DEFAULT_REGION}" ]]; then
+    echo "Error: Required environment varibale 'AWS_DEFAULT_REGION' was not defined! (e.g. $ docker run -e AWS_DEFAULT_REGION=eu-central-1)"
+    exit 2
+  fi
+
+  if [[ -z "${AWS_SES_SMTP_USER}" ]]; then
+    echo "Error: Required environment varibale 'AWS_SES_SMTP_USER' was not defined! (e.g. $ docker run -e AWS_SES_SMTP_USER=xxx)"
+    exit 2
+  fi
+
+  if [[ -z "${AWS_SES_SMTP_PASS}" ]]; then
+    echo "Error: Required environment varibale 'AWS_SES_SMTP_PASS' was not defined! (e.g. $ docker run -e AWS_SES_SMTP_PASS=xxx)"
+    exit 2
+  fi
+
+  sed -i -e "s/{SMTP-USER}/${AWS_SES_SMTP_USER}/g" \
+    -e "s/{SMTP-PASS}/${AWS_SES_SMTP_PASS}/g" \
+    -e "s/{REGION}/${AWS_DEFAULT_REGION}/g" \
+    /root/.mutt/muttrc
 
   # Trigger the relevant command.
   case "${command}" in
