@@ -27,8 +27,8 @@ update_hls:
     - 3_upload.sh
   cleanup: cleanup.sh
   notify:
-    at_start: true
-    at_complete: true
+    at_start: false
+    at_complete: false
     email:
       only_on_failure: false
       list:
