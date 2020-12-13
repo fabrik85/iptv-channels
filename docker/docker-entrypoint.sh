@@ -25,6 +25,8 @@ function exitWithUsage() {
   echo "            Skip the defined execute script (step file)."
   echo "     --sec"
   echo "            Sleep the defined [x] second(s) (only for 'sleep' command)"
+  echo "     --debug"
+  echo "            Debug option (e.g. disables AWS env var check, disable reporting (email, slack), etc...)."
   echo ""
   echo ""
   echo "EXAMPLE"
@@ -44,9 +46,10 @@ function main() {
   local dry_run
   local skip_steps
   local second
+  local debug
 
   # Process config values.
-  options=$(getopt -n docker-entrypoint -o s:d: --long skip-steps:,sec:,dry-run, -- "${@:2}")
+  options=$(getopt -n docker-entrypoint -o s:d: --long skip-steps:,sec:,dry-run,debug, -- "${@:2}")
   valid_arguments=$?
   if [[ "${valid_arguments}" != "0" ]]; then
     exitWithUsage
@@ -67,6 +70,9 @@ function main() {
       --sec)
         second="${2}" ; shift 2
         ;;
+      --debug)
+        debug="true" ; shift
+        ;;
       --)
         shift; break
         ;;
@@ -79,37 +85,40 @@ function main() {
   local args=( )
 
   [[ -n "${skip_steps}" ]] && args+=( "--skip-steps=${skip_steps}" )
-  [[ -n "${dry_run}" ]] && args+=( "--noop" )
+  [[ -n "${dry_run}" ]] && args+=( "--dryrun" )
+  [[ -n "${debug}" ]] && args+=( "--debug" )
 
-  if [[ -z "${AWS_ACCESS_KEY_ID}" ]]; then
+  if [[ -z "${debug}" ]] && [[ -z "${AWS_ACCESS_KEY_ID}" ]]; then
     echo "Error: Required environment varibale 'AWS_ACCESS_KEY_ID' was not defined! (e.g. $ docker run -e AWS_ACCESS_KEY_ID=xxx)"
     exit 2
   fi
 
-  if [[ -z "${AWS_SECRET_ACCESS_KEY}" ]]; then
+  if [[ -z "${debug}" ]] && [[ -z "${AWS_SECRET_ACCESS_KEY}" ]]; then
     echo "Error: Required environment varibale 'AWS_SECRET_ACCESS_KEY' was not defined! (e.g. $ docker run -e AWS_SECRET_ACCESS_KEY=xxx)"
     exit 2
   fi
 
-  if [[ -z "${AWS_DEFAULT_REGION}" ]]; then
+  if [[ -z "${debug}" ]] && [[ -z "${AWS_DEFAULT_REGION}" ]]; then
     echo "Error: Required environment varibale 'AWS_DEFAULT_REGION' was not defined! (e.g. $ docker run -e AWS_DEFAULT_REGION=eu-central-1)"
     exit 2
   fi
 
-  if [[ -z "${AWS_SES_SMTP_USER}" ]]; then
+  if [[ -z "${debug}" ]] && [[ -z "${AWS_SES_SMTP_USER}" ]]; then
     echo "Error: Required environment varibale 'AWS_SES_SMTP_USER' was not defined! (e.g. $ docker run -e AWS_SES_SMTP_USER=xxx)"
     exit 2
   fi
 
-  if [[ -z "${AWS_SES_SMTP_PASS}" ]]; then
+  if [[ -z "${debug}" ]] && [[ -z "${AWS_SES_SMTP_PASS}" ]]; then
     echo "Error: Required environment varibale 'AWS_SES_SMTP_PASS' was not defined! (e.g. $ docker run -e AWS_SES_SMTP_PASS=xxx)"
     exit 2
   fi
 
-  sed -i -e "s/{SMTP-USER}/${AWS_SES_SMTP_USER}/g" \
-    -e "s/{SMTP-PASS}/${AWS_SES_SMTP_PASS}/g" \
-    -e "s/{REGION}/${AWS_DEFAULT_REGION}/g" \
-    /root/.mutt/muttrc
+  if [[ -z "${debug}" ]]; then
+    sed -i -e "s/{SMTP-USER}/${AWS_SES_SMTP_USER}/g" \
+      -e "s/{SMTP-PASS}/${AWS_SES_SMTP_PASS}/g" \
+      -e "s/{REGION}/${AWS_DEFAULT_REGION}/g" \
+      /root/.mutt/muttrc
+  fi
 
   # Trigger the relevant command.
   case "${command}" in

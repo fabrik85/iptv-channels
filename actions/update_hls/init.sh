@@ -2,11 +2,14 @@
 export __DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Run without any effect (simulate).
-export DRYRUN=0
+export DRYRUN=1
 
 # Step files has to be skipped.
 # Multiple steps defined as colon separated string (e.g. 5:6:7:8:9:10:11)
 export SKIP=""
+
+# Run in debug mode. (var name: DEBUG already used in helper.sh so use ADEBUG instead.)
+export ADEBUG=1
 
 # ===========================
 # Function Definitions
@@ -22,9 +25,12 @@ function getConfig() {
   #shellcheck disable=SC2068
   for option in $@; do
     option="$(echo "${option}" | tr "[:upper:]" "[:lower:]")"
+
     case "${option}" in
       --dryrun)
-        readonly DRYRUN=1 ;;
+        readonly DRYRUN=0 ;;
+      --debug)
+        ADEBUG=0 ;;
       --skip-steps=*)
         readonly SKIP="${option//--skip-steps=/}" ;;
     esac

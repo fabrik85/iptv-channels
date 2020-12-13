@@ -53,6 +53,11 @@ function isEuronewsUrlChanged() {
     fi
 }
 
+if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then
+  __msg_error "File ${LOCAL_PATH} does not exists! Make sure you provide the file in --debug mode!"
+  return "${FAILURE}"
+fi
+
 # "0" = true
 if [[ $(isEuronewsUrlChanged) == "0" ]]; then
   createNewFile
