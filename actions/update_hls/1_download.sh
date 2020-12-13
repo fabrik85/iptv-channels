@@ -41,5 +41,9 @@ fi
 
 prepare
 downloadFromS3
+
+# Copy file to be able compare (during debug)
+cp ${LOCAL_PATH} ${LOCAL_PATH}.original
+
 # Restore DRYRUN
 postAction

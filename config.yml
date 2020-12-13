@@ -23,8 +23,9 @@ update_hls:
   entrypoint: init.sh
   scripts:
     - 1_download.sh
-    - 2_update_euronews.sh
-    - 3_upload.sh
+    - 2_euronews.sh
+    - 3_natgeo.sh
+    - 4_upload.sh
   cleanup: cleanup.sh
   notify:
     at_start: false

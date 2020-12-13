@@ -31,6 +31,11 @@ function createNewFile() {
     awk 'x==1 {print} /https:\/\/euro.*/ {x=1}' ${LOCAL_PATH} >> ${LOCAL_PATH}.modified
 }
 
+function replaceFile() {
+  rm ${LOCAL_PATH}
+  mv ${LOCAL_PATH}.modified ${LOCAL_PATH}
+}
+
 # "0" = true
 # "1" = false
 function isEuronewsUrlChanged() {
@@ -61,6 +66,7 @@ fi
 # "0" = true
 if [[ $(isEuronewsUrlChanged) == "0" ]]; then
   createNewFile
+  replaceFile
   __msg_info "Euronews updated!"
   
   return "${SUCCESS}"

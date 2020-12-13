@@ -5,3 +5,4 @@ LOCAL_FILE="siptv.m3u"
 LOCAL_PATH="${LOCAL_DIR}/${LOCAL_FILE}"
 
 EURONEWS_M3U8_URL="https://onlinestream.live/play.m3u8?id=5855&ch=1&ext=.m3u8"
+NATGEO_M3U8_URL="https://onlinestream.live/play.m3u?id=5936&ext=.m3u"
