@@ -14,7 +14,7 @@ if [[ $(_isSkippedStep "${__STEP}") == "0" ]]; then
 fi
 
 function uploadToS3() {
-  if [[ "${DRYRUN}" -eq 0 ]] && [[ -f ${LOCAL_PATH} ]]; then
+  if [[ "${DRYRUN}" -ne 0 ]] && [[ -f ${LOCAL_PATH} ]]; then
     aws s3 cp "${LOCAL_PATH}" "${S3_PATH}"
   fi
 }

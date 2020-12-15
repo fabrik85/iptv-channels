@@ -21,7 +21,7 @@ function prepare() {
 
 function downloadFromS3() {
   # Download
-  if [[ "${DRYRUN}" -eq 1 ]] && ! aws s3 cp "${S3_PATH}" "${LOCAL_PATH}"; then
+  if [[ "${DRYRUN}" -ne 0 ]] && ! aws s3 cp "${S3_PATH}" "${LOCAL_PATH}"; then
     # Is file exists?
     if ! aws s3 ls "${S3_PATH}" 1> "${LOCAL_PATH}.info" 2> /dev/null; then
       __msg_error "File on S3 not exists! S3 path: ${S3_PATH}"
