@@ -14,9 +14,9 @@ if [[ $(_isSkippedStep "${__STEP}") == "0" ]]; then
 fi
 
 # Comment line in siptv.m3u over the HLS definition.
-CHANNEL="# Euronews"
-FILENAME="euronews.m3u8"
-URL=${EURONEWS_URL}
+CHANNEL="# NatGeo Wild"
+FILENAME="natgeoWild.m3u8"
+URL=${SPEKTRUM_URL}
 
 # handle --debug option
 if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then

@@ -41,7 +41,7 @@ function isNatGeoUrlChanged() {
     actualUrl=$(grep -A2 '# NatGeo' ${LOCAL_PATH} | tail -1) # grep the search pattern +2 lines | print last line
 
     # Download NatGeo .m3u8
-    curl -o ${LOCAL_DIR}/natgeo.m3u8 ${NATGEO_M3U8_URL}
+    curl -o ${LOCAL_DIR}/natgeo.m3u8 ${NATGEO_URL}
 
     # Store the new URL in a variable
     natGeoUrl=$(grep -A1 '#EXTINF:-1,(#1)' ${LOCAL_DIR}/natgeo.m3u8 | tail -1) # grep the search pattern +1 line | print last line

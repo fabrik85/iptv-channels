@@ -13,11 +13,6 @@ if [[ $(_isSkippedStep "${__STEP}") == "0" ]]; then
   return "${SUCCESS}"
 fi
 
-# Comment line in siptv.m3u over the HLS definition.
-CHANNEL="# Euronews"
-FILENAME="euronews.m3u8"
-URL=${EURONEWS_URL}
-
 # handle --debug option
 if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then
   __msg_error "File ${LOCAL_PATH} does not exists! Make sure you provide the file in --debug mode!"
@@ -25,13 +20,18 @@ if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then
 fi
 
 # Download the channel's source file.
-curl -o ${LOCAL_DIR}/${FILENAME} ${URL}
+curl -o ${LOCAL_DIR}/izauraTv.m3u8 ${IZAURA_TV_URL}
 
 # Store the channel IPTV address.
-SOURCE_URL=$(grep -A1 '#EXTM3U' ${LOCAL_DIR}/${FILENAME} | tail -1)
+sourceUrl=$(grep -A1 '#EXTINF:-1,(#1)' ${LOCAL_DIR}/izauraTv.m3u8 | tail -1)
 
 # Update channel address.
-if [[ $(updateChannelAddress "${CHANNEL}" "${SOURCE_URL}") == "0" ]]; then
-  __msg_info "${CHANNEL} Updated!"
+if [[ $(isChannelAddressChanged "# Izaura TV" "${sourceUrl}") == "0" ]]; then
+  createNewHLSFile "# Izaura TV" "${sourceUrl}"
+
+  # Overwrite existing HLS file.
+  mv ${LOCAL_PATH}.modified ${LOCAL_PATH}
+
+  __msg_info "Izaura TV Updated!"
   return "${SUCCESS}"
 fi

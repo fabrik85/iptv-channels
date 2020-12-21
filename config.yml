@@ -6,7 +6,7 @@ create_hls:
   entrypoint: init.sh
   scripts:
     - 1_generate.sh
-    - 2_upload.sh
+    - 99_upload.sh
   cleanup: cleanup.sh
   notify:
     at_start: true
@@ -25,7 +25,12 @@ update_hls:
     - 1_download.sh
     - 2_euronews.sh
     - 3_natgeo.sh
-    - 4_upload.sh
+    - 4_spektrum_home.sh
+    - 5_izaura.sh
+    - 6_spektrum.sh
+    - 7_natgeo_wild.sh
+    - 8_life_tv.sh
+    - 99_upload.sh
   cleanup: cleanup.sh
   notify:
     at_start: false
