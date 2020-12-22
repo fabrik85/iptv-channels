@@ -16,7 +16,7 @@ fi
 # Comment line in siptv.m3u over the HLS definition.
 CHANNEL="# Spektrum"
 FILENAME="spektrum.m3u8"
-URL=${SPEKTRUM_URL}
+URL=${SPEKTRUM}
 
 # handle --debug option
 if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then

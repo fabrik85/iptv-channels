@@ -16,7 +16,7 @@ fi
 # Comment line in siptv.m3u over the HLS definition.
 CHANNEL="# NatGeo Wild"
 FILENAME="natgeoWild.m3u8"
-URL=${SPEKTRUM_URL}
+URL=${NATGEO_WILD}
 
 # handle --debug option
 if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then

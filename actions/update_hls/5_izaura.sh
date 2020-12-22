@@ -20,7 +20,7 @@ if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then
 fi
 
 # Download the channel's source file.
-curl -o ${LOCAL_DIR}/izauraTv.m3u8 ${IZAURA_TV_URL}
+curl -o ${LOCAL_DIR}/izauraTv.m3u8 ${IZAURA_TV}
 
 # Store the channel IPTV address.
 sourceUrl=$(grep -A1 '#EXTINF:-1,(#1)' ${LOCAL_DIR}/izauraTv.m3u8 | tail -1)

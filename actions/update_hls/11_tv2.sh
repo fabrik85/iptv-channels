@@ -14,9 +14,9 @@ if [[ $(_isSkippedStep "${__STEP}") == "0" ]]; then
 fi
 
 # Comment line in siptv.m3u over the HLS definition.
-CHANNEL="# LifeTV"
-FILENAME="lifeTv.m3u8"
-URL=${LIFE_TV}
+CHANNEL="# TV2"
+FILENAME="tv2.xspf"
+URL=${TV2}
 
 # handle --debug option
 if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then
@@ -28,7 +28,7 @@ fi
 curl -o ${LOCAL_DIR}/${FILENAME} ${URL}
 
 # Store the channel IPTV address.
-SOURCE_URL=$(grep -A1 '#EXTM3U' ${LOCAL_DIR}/${FILENAME} | tail -1)
+SOURCE_URL=$(awk 'gsub(/<location>|<\/location>/,x)' ${LOCAL_DIR}/${FILENAME})
 
 # Update channel address.
 if [[ $(updateChannelAddress "${CHANNEL}" "${SOURCE_URL}") == "0" ]]; then

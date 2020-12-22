@@ -13,6 +13,11 @@ if [[ $(_isSkippedStep "${__STEP}") == "0" ]]; then
   return "${SUCCESS}"
 fi
 
+# Comment line in siptv.m3u over the HLS definition.
+CHANNEL="# Spektrum Home"
+FILENAME="spektrumHome.xspf"
+URL=${SPEKTRUM_HOME}
+
 # handle --debug option
 if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then
   __msg_error "File ${LOCAL_PATH} does not exists! Make sure you provide the file in --debug mode!"
@@ -20,18 +25,13 @@ if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then
 fi
 
 # Download the channel's source file.
-curl -o ${LOCAL_DIR}/spektrumHome.xspf ${SPEKTRUM_HOME_URL}
+curl -o ${LOCAL_DIR}/${FILENAME} ${URL}
 
 # Store the channel IPTV address.
-sourceUrl=$(awk 'gsub(/<location>|<\/location>/,x)' ${LOCAL_DIR}/spektrumHome.xspf)
+SOURCE_URL=$(awk 'gsub(/<location>|<\/location>/,x)' ${LOCAL_DIR}/${FILENAME})
 
 # Update channel address.
-if [[ $(isChannelAddressChanged "# Spektrum Home" "${sourceUrl}") == "0" ]]; then
-  createNewHLSFile "# Spektrum Home" "${sourceUrl}"
-
-  # Overwrite existing HLS file.
-  mv ${LOCAL_PATH}.modified ${LOCAL_PATH}
-
-  __msg_info "Spektrum Home Updated!"
+if [[ $(updateChannelAddress "${CHANNEL}" "${SOURCE_URL}") == "0" ]]; then
+  __msg_info "${CHANNEL} Updated!"
   return "${SUCCESS}"
 fi

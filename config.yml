@@ -30,6 +30,15 @@ update_hls:
     - 6_spektrum.sh
     - 7_natgeo_wild.sh
     - 8_life_tv.sh
+    - 9_duna.sh
+    - 10_duna_world.sh
+    - 11_tv2.sh
+#    - 12_mozi_plusz.sh
+    - 13_moziverzum.sh
+    - 14_paramount.sh
+    - 15_prime.sh
+    - 16_rtl_spike.sh
+    - 17_super_tv2.sh
     - 99_upload.sh
   cleanup: cleanup.sh
   notify:

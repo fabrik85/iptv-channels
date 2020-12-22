@@ -14,9 +14,9 @@ if [[ $(_isSkippedStep "${__STEP}") == "0" ]]; then
 fi
 
 # Comment line in siptv.m3u over the HLS definition.
-CHANNEL="# LifeTV"
-FILENAME="lifeTv.m3u8"
-URL=${LIFE_TV}
+CHANNEL="# Moziverzum"
+FILENAME="moziverzum.m3u8"
+URL=${MOZIVERZUM}
 
 # handle --debug option
 if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then

@@ -16,7 +16,7 @@ fi
 # Comment line in siptv.m3u over the HLS definition.
 CHANNEL="# Euronews"
 FILENAME="euronews.m3u8"
-URL=${EURONEWS_URL}
+URL=${EURONEWS}
 
 # handle --debug option
 if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then
