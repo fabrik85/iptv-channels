@@ -33,7 +33,7 @@ update_hls:
     - 9_duna.sh
     - 10_duna_world.sh
     - 11_tv2.sh
-#    - 12_mozi_plusz.sh
+    - 12_mozi_plusz.sh
     - 13_moziverzum.sh
     - 14_paramount.sh
     - 15_prime.sh
