@@ -26,8 +26,8 @@ function __msg_info() {
 }
 
 # ${1} - Filename
-function __get_static_file_path() {
-  echo "${ROOT_DIR}/actions/${ACTION}/static/${1}"
+function __get_asset_path() {
+  echo "${ROOT_DIR}/actions/${ACTION}/asset/${1}"
 }
 
 function __get_property() {

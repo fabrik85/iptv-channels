@@ -1,7 +1,7 @@
-# shellcheck source=./helper/step_helper.sh
-source "${__DIR}"/helper/step_helper.sh
-# shellcheck source=./helper/post_action_helper.sh
-source "${__DIR}"/helper/post_action_helper.sh
+# shellcheck source=./helper/skip.sh
+source "${__DIR}"/helper/skip.sh
+# shellcheck source=./helper/post_action.sh
+source "${__DIR}"/helper/post_action.sh
 
 __FILE_PATH="${__DIR}/$(basename "${BASH_SOURCE[0]}")"
 __FILE=${__FILE_PATH##*/} # Remove everything from the last  '/' char backwards
@@ -15,7 +15,7 @@ fi
 
 function prepare() {
   if [[ ! -d ${LOCAL_DIR} ]]; then
-    mkdir -p ${LOCAL_DIR}
+    mkdir -p "${LOCAL_DIR}"
   fi
 }
 
@@ -43,7 +43,7 @@ prepare
 downloadFromS3
 
 # Copy file to be able compare (during debug)
-cp ${LOCAL_PATH} ${LOCAL_PATH}.original
+cp "${LOCAL_PATH}" "${LOCAL_PATH}.original"
 
 # Restore DRYRUN
 postAction

@@ -5,13 +5,13 @@ if [[ "${ADEBUG}" -eq 0 ]] && [[ ! -f ${LOCAL_PATH} ]]; then
 fi
 
 # Download the channel's source file.
-curl -o ${LOCAL_DIR}/${FILENAME} ${URL}
+curl -o "${LOCAL_DIR}/${FILENAME}" "${URL}"
 
 # Store the channel IPTV address.
-SOURCE_URL=$(grep -A1 '#EXTM3U' ${LOCAL_DIR}/${FILENAME} | tail -1)
+SOURCE_URL=$(awk 'gsub(/<location>|<\/location>/,x)' "${LOCAL_DIR}/${FILENAME}")
 
 # Update channel address.
-if [[ $(updateChannelAddress "${CHANNEL}" "${SOURCE_URL}") == "0" ]]; then
-  __msg_info "${CHANNEL} Updated!"
+if [[ $(updateChannelAddress "${COMMENT}" "${SOURCE_URL}") == "0" ]]; then
+  __msg_info "${NAME} Updated!"
   return "${SUCCESS}"
 fi

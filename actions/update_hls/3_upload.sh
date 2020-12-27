@@ -1,7 +1,7 @@
-# shellcheck source=./helper/step_helper.sh
-source "${__DIR}"/helper/step_helper.sh
-# shellcheck source=./helper/post_action_helper.sh
-source "${__DIR}"/helper/post_action_helper.sh
+# shellcheck source=./helper/skip.sh
+source "${__DIR}"/helper/skip.sh
+# shellcheck source=./helper/post_action.sh
+source "${__DIR}"/helper/post_action.sh
 
 __FILE_PATH="${__DIR}/$(basename "${BASH_SOURCE[0]}")"
 __FILE=${__FILE_PATH##*/} # Remove everything from the last  '/' char backwards
