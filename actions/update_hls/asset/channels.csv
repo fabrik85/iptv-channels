@@ -19,9 +19,10 @@ Moziverzum;https://onlinestream.live/play.m3u8?id=6720&ch=1&ext=.m3u8;extm3u
 Spektrum;https://onlinestream.live/play.m3u8?id=6749&ch=1&ext=.m3u8;extm3u
 Spektrum-Home;https://onlinestream.live/play.xspf?id=6589&ch=1&ext=.xspf;xspf
 Life-TV;https://onlinestream.live/play.m3u8?id=6603&ch=1&ext=.m3u8;extm3u
-TLC;https://onlinestream.live/play.m3u8?id=6751&ch=1&ext=.m3u8;extm3u
+#TLC;https://onlinestream.live/play.m3u8?id=6751&ch=1&ext=.m3u8;extm3u
 Comedy-Central;https://onlinestream.live/play.m3u8?id=6750&ch=1&ext=.m3u8;extm3u
 National-Geographic;https://onlinestream.live/play.m3u?id=5936&ext=.m3u;extinf1
 National-Geographic-Wild;https://onlinestream.live/play.m3u8?id=5937&ch=1&ext=.m3u8;extm3u
 Discovery-Channel;https://onlinestream.live/play.m3u8?id=6768&ch=1&ext=.m3u8;extm3u
 Euronews;https://onlinestream.live/play.m3u8?id=5855&ch=1&ext=.m3u8;extm3u
+Viasat-6;https://onlinestream.live/play.xspf?id=6236&ch=1&ext=.xspf;xspf

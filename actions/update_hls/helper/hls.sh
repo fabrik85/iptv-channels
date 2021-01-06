@@ -10,17 +10,23 @@ if ! curl -o "${LOCAL_DIR}/${FILENAME}" "${URL}"; then
   return "${FAILURE}"
 fi
 
-# Store the channel IPTV address.
-SOURCE_URL=$(grep -A1 "${SEARCH_PATTERN}" "${LOCAL_DIR}/${FILENAME}" | tail -1)
-
-if [[ -z "${SOURCE_URL}" ]]; then
-  __msg_info "SOURCE_URL empty! Search pattern: ${SEARCH_PATTERN}!"
-fi
-
-# Update channel address.
-if [[ $(updateChannelAddress "${COMMENT}" "${SOURCE_URL}") == "0" ]]; then
-  __msg_info "${NAME} updated! \n"
-  return "${SUCCESS}"
+# Check file size (it will be 0 in case the channel source removed).
+if [[ $(du -k "${LOCAL_DIR}/${FILENAME}" | cut -f1) -le 1 ]]; then
+  __msg_info_color "No channel source for: ${NAME}! \n"
+  # @todo send an e-mail to inform the maintainer!
 else
-  __msg_info "${NAME} is already up-to-date! \n"
+  # Store the channel IPTV address.
+  SOURCE_URL=$(grep -A1 "${SEARCH_PATTERN}" "${LOCAL_DIR}/${FILENAME}" | tail -1)
+
+  if [[ -z "${SOURCE_URL}" ]]; then
+    __msg_info "SOURCE_URL empty! Search pattern: ${SEARCH_PATTERN}!"
+  fi
+
+  # Update channel address.
+  if [[ $(updateChannelAddress "${COMMENT}" "${SOURCE_URL}") == "0" ]]; then
+    __msg_info "${NAME} updated! \n"
+    return "${SUCCESS}"
+  else
+    __msg_info "${NAME} is already up-to-date! \n"
+  fi
 fi

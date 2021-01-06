@@ -8,21 +8,30 @@ export UNKNOWN_MSG="UNKNOWN_EXCEPTION"
 export OVERALL_RESULT="$SUCCESS_MSG"
 export LOG_DIR=""
 
+export RED="\033[0;31m"
+export GREEN="\033[0;32m"
+export YELLOW="\033[0;33m"
+export COLOR_OFF="\033[0m"
+
 # Set log defaults
 [[ -z "${DEBUG:-}" ]] && export DEBUG=1
 [[ -z "${INFO:-}" ]] && export INFO=1
 [[ -z "${ERROR:-}" ]] && export ERROR=1
 
 function __msg_error() {
-  [[ "${ERROR}" == "1" ]] && echo -e "[ERROR]: $*"
+  [[ "${ERROR}" == "1" ]] && echo -e "${RED}[ERROR]: $*${COLOR_OFF}"
 }
 
 function __msg_debug() {
-  [[ "${DEBUG}" == "1" ]] && echo -e "[DEBUG]: $*"
+  [[ "${DEBUG}" == "1" ]] && echo -e "${GREEN}[DEBUG]: $*${COLOR_OFF}"
 }
 
 function __msg_info() {
   [[ "${INFO}" == "1" ]] && echo -e "[INFO]: $*"
+}
+
+function __msg_info_color() {
+  [[ "${INFO}" == "1" ]] && echo -e "${YELLOW}[INFO]: $*${COLOR_OFF}"
 }
 
 # ${1} - Filename
