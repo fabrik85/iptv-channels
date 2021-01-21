@@ -20,6 +20,10 @@ function main() {
   getConfig "$@"
   #shellcheck source=/dev/null
   source "${ROOT_DIR}/actions/${ACTION}/vars.sh"
+
+  if [[ "${ENV:-}" == 'dev' ]]; then
+    ADEBUG=0
+  fi
 }
 
 function getConfig() {

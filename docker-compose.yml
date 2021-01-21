@@ -1,0 +1,18 @@
+version: "2.4"
+services:
+  iptv:
+    container_name: iptv
+    entrypoint: /usr/bin/tail
+    command: ["-f", "/dev/null"]
+    working_dir: /home/src
+    volumes:
+      - ./:/home/src
+      - data-volume:/root/iptv
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    environment:
+      ENV: dev
+
+volumes:
+  data-volume:
