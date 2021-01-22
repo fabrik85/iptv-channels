@@ -12,15 +12,27 @@ fi
 
 # Check file size (it will be 0 in case the channel source removed).
 if [[ $(du -k "${LOCAL_DIR}/${FILENAME}" | cut -f1) -le 1 ]]; then
-  __msg_info_color "No channel source for: ${NAME}! \n"
+  __msg_info_color "--hls.sh: No channel source for: ${NAME}!"
   # @todo send an e-mail to inform the maintainer!
+  __msg_info "--hls.sh: DISABLE Channel: ${COMMENT}"
+  disableChannel "${COMMENT}"
+
+# Check if pattern (e.g. #EXTM3U) exits in downloaded file.
+elif [[ -z $(grep -A1 "${SEARCH_PATTERN}" "${LOCAL_DIR}/${FILENAME}" | tail -1) ]]; then
+  __msg_info_color "--hls.sh: SOURCE_URL empty! Search pattern: ${SEARCH_PATTERN}!"
+  __msg_info "--hls.sh: DISABLE Channel: ${COMMENT}"
+  disableChannel "${COMMENT}"
+
+# Try to update stream link.
 else
+  # Enable channel before try to update
+  if grep -q "^# OFF ${NAME}$" "${LOCAL_PATH}"; then
+    __msg_info_color "--hls.sh: ENABLE Channel: ${COMMENT}"
+    enableChannel "${COMMENT}"
+  fi
+
   # Store the channel IPTV address.
   SOURCE_URL=$(grep -A1 "${SEARCH_PATTERN}" "${LOCAL_DIR}/${FILENAME}" | tail -1)
-
-  if [[ -z "${SOURCE_URL}" ]]; then
-    __msg_info "SOURCE_URL empty! Search pattern: ${SEARCH_PATTERN}!"
-  fi
 
   # Update channel address.
   if [[ $(updateChannelAddress "${COMMENT}" "${SOURCE_URL}") == "0" ]]; then

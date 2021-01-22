@@ -26,7 +26,18 @@ if [[ -f "$(__get_asset_path "channels.csv")" ]]; then
       export FILENAME
       export URL
 
-      source "${__DIR}"/helper/"$(echo "${channel}" | cut -d';' -f3)".sh
+      if ! curl -Is "${URL}" | grep -q 'location:'; then # redirect => channel not working anymore
+        # Process the channel
+        __msg_info "Process: ${NAME} \n"
+        source "${__DIR}"/helper/"$(echo "${channel}" | cut -d';' -f3)".sh
+
+      # Only remove if $COMMENT (channel) still exists in .m3u file
+      elif grep -q "^${COMMENT}$" "${LOCAL_PATH}"; then
+        __msg_info_color "--url-redirect: channel NOT available: ${NAME}!"
+        # @todo send an e-mail to inform the maintainer!
+        __msg_info "--2_replace.sh: disableChannel: ${COMMENT}"
+        disableChannel "${COMMENT}"
+      fi
     fi
   done
 else
