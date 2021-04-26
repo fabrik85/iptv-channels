@@ -80,12 +80,19 @@ function insertIntoM3u() {
     filename=$(printf "%03d_%s.tpl" "${increment}" "${id}")
     __msg_info "Create: ${filename} \n"
 
+    # Escape slashes
+    stream=$(echo "$stream" | sed 's/\//\\\//g');
+    logo=$(echo "$logo" | sed 's/\//\\\//g');
+    # Escape ampersands
+    stream=${stream//&/\\&}
+    logo=${logo//&/\\&}
+
     cp "${__DIR}"/template/"${tpl}".tpl "${LOCAL_DIR}"/"${filename}"
     sed -i -e "s/{ID}/${id}/g" \
         -e "s/{NAME}/${name}/g" \
         -e "s/{EPG}/${epg}/g" \
-        -e "s,{LOGO},${logo},g" \
-        -e "s,{STREAM},${stream},g" \
+        -e "s/{LOGO}/${logo}/g" \
+        -e "s/{STREAM}/${stream}/g" \
         "${LOCAL_DIR}"/"${filename}"
   fi
 }

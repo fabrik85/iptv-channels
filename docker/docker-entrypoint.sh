@@ -15,16 +15,14 @@ function exitWithUsage() {
   echo "            Create new HLS file."
   echo "     update [--dry-run] [--skip-steps]"
   echo "            Update existing HLS file."
-  echo "     sleep [--sec]"
-  echo "            Do nothing else just sleep for x second(s)."
+  echo "     debug"
+  echo "            Do nothing else just prevent exiting the container."
   echo ""
   echo "OPTIONS"
   echo "     --dry-run"
   echo "            Simulate command without any effect."
   echo "     --skip-steps"
   echo "            Skip the defined execute script (step file)."
-  echo "     --sec"
-  echo "            Sleep the defined [x] second(s) (only for 'sleep' command)"
   echo "     --debug"
   echo "            Debug option (e.g. disables AWS env var check, disable reporting (email, slack), etc...)."
   echo ""
@@ -32,7 +30,7 @@ function exitWithUsage() {
   echo "EXAMPLE"
   echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv create --dry-run"
   echo ""
-  echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv sleep --sec=30"
+  echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv debug"
   echo ""
   echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv update --skip-steps=2:3"
   exit 2
@@ -45,7 +43,6 @@ function main() {
 
   local dry_run
   local skip_steps
-  local second
   local debug
 
   # Process config values.
@@ -66,9 +63,6 @@ function main() {
         ;;
       -s | --skip-steps)
         skip_steps="${2}" ; shift 2
-        ;;
-      --sec)
-        second="${2}" ; shift 2
         ;;
       --debug)
         debug="true" ; shift
@@ -122,15 +116,15 @@ function main() {
 
   # Trigger the relevant command.
   case "${command}" in
-    "sleep")
-      # Keep the container running for x second(s) to be able to debug.
-      sleep ${second}
+    "debug")
+      # Keep the container running for debugging (do nothing just prevent exiting the container).
+      /usr/bin/tail -f /dev/null
       ;;
     "create")
-      /home/src/main.sh --action=create_hls "${args[@]}"
+      /home/src/main.sh --action=create "${args[@]}"
       ;;
     "update")
-      /home/src/main.sh --action=update_hls "${args[@]}"
+      /home/src/main.sh --action=update "${args[@]}"
       ;;
     *)
       exitWithUsage

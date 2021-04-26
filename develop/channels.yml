@@ -6,7 +6,7 @@ tv:
     tpl: m3u
     epg: RTLKlub.hu
     logo: https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/RTL_Klub_logo.svg/1200px-RTL_Klub_logo.svg.png
-    download: https://onlinestream.live/play.m3u?id=6141&ext=.m3u
+#    download: https://onlinestream.live/play.m3u?id=6141&ext=.m3u
     stream: https://stream.y5.hu:443/stream/stream_rtlklub/hls1/stream.m3u8
 
   - id: tv2
@@ -27,3 +27,51 @@ tv:
     name: Euronews
     tpl: youtube
     stream: https://www.youtube.com/watch?v=xddy7-kDdkE
+
+  - id: filmplusz
+    name: Film+
+    type: extinf1
+    tpl: m3u
+    epg: FilmPlus.hu
+    logo: https://onlinestream.live/logos/s6150.png
+    stream: https://stream.y5.hu:443/stream/stream_filmp/hls1/stream.m3u8
+
+  - id: rtl2
+    name: RTL2
+    type: extinf1
+    tpl: m3u
+    epg: RTL2.hu
+    logo: https://onlinestream.live/logos/s6142.png
+    stream: https://stream.y5.hu:443/stream/stream_rtl2/hls1/stream.m3u8
+
+  - id: spektrum
+    name: Spektrum
+    type: extinf1
+    tpl: m3u
+    epg: Spektrum.hu
+    logo: https://mindigtv.hu/resize/wLgASjLig4.jpg
+    stream: https://onlinestream.live/play.m3u?id=6749&ext=.m3u
+
+  - id: viasat3
+    name: Viasat 3
+    type: xspf
+    tpl: m3u
+    epg: Viasat3.hu
+    logo: https://static.epg.best/hu/Viasat3.hu.png
+    stream: https://onlinestream.live/play.xspf?id=5911&ch=1&ext=.xspf
+
+  - id: viasat6
+    name: Viasat 6
+    type: xspf
+    tpl: m3u
+    epg: Viasat6.hu
+    logo: https://static.epg.best/hu/Viasat6.hu.png
+    stream: https://onlinestream.live/play.xspf?id=6236&ch=1&ext=.xspf
+
+  - id: natgeowild
+    name: NatGeo Wild
+    type: xspf
+    tpl: m3u
+    epg: NatGeoWild.hu
+    logo: https://static.epg.best/hu/NatGeoWild.hu.png
+    stream: https://onlinestream.live/play.xspf?id=5937&ch=1&ext=.xspf
