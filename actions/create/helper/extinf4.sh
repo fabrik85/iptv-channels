@@ -1,0 +1,1 @@
+export SEARCH_PATTERN="#EXTINF:-1,(#4)"

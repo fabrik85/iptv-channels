@@ -1,25 +1,26 @@
 actions:
-  - create_hls
-  - update_hls
+  - create
+  - update
 
-create_hls:
+create:
   entrypoint: init.sh
   scripts:
-    - 1_generate.sh
-    - 99_upload.sh
+    - 1_download_yaml.sh
+    - 2_create_m3u.sh
+    - 3_upload.sh
   cleanup: cleanup.sh
   notify:
-    at_start: true
-    at_complete: true
+    at_start: false
+    at_complete: false
     email:
-      only_on_failure: true
+      only_on_failure: false
       list:
         - iptv@bestfabrik.de
     slack:
       only_on_failure: true
       webhook: https://hooks.slack.com/services/xxx...
 
-update_hls:
+update:
   entrypoint: init.sh
   scripts:
     - 1_download.sh

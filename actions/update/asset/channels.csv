@@ -1,5 +1,5 @@
 RTL-Klub;https://onlinestream.live/play.m3u?id=6141&ext=.m3u;extinf1
-TV2;https://onlinestream.live/play.xspf?id=6143&ch=2&ext=.xspf;xspf
+#TV2;https://onlinestream.live/play.xspf?id=6143&ch=2&ext=.xspf;xspf
 #Pannon-TV
 Euronews;https://onlinestream.live/play.m3u8?id=5855&ch=1&ext=.m3u8;extm3u
 #Film-Plusz
@@ -11,11 +11,11 @@ Spektrum;https://onlinestream.live/play.m3u8?id=6749&ch=1&ext=.m3u8;extm3u
 #Spektrum-Home;https://onlinestream.live/play.xspf?id=6589&ch=1&ext=.xspf;xspf
 National-Geographic;https://onlinestream.live/play.m3u?id=5936&ext=.m3u;extinf1
 National-Geographic-Wild;https://onlinestream.live/play.m3u8?id=5937&ch=1&ext=.m3u8;extm3u
-#M1
+M1;https://onlinestream.live/play.m3u?id=5901&ext=.m3u;
 Duna;https://onlinestream.live/play.m3u?id=5905&ext=.m3u;extinf4
 Duna-World;https://onlinestream.live/play.m3u8?id=5906&ch=1&ext=.m3u8;extm3u
 #Cool
-Paramount;https://onlinestream.live/play.m3u8?id=6708&ch=1&ext=.m3u8;extm3u
+Paramount;https://onlinestream.live/play.xspf?id=6708&ch=1&ext=.xspf;xspf
 Discovery-Channel;https://onlinestream.live/play.m3u8?id=6768&ch=1&ext=.m3u8;extm3u
 #M2
 Mozi-Plusz;https://onlinestream.live/play.m3u8?id=6152&ch=1&ext=.m3u8;extm3u

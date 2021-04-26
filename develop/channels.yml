@@ -1,0 +1,29 @@
+---
+tv:
+  - id: rtlklub
+    name: RTL Klub
+    type: extinf1
+    tpl: m3u
+    epg: RTLKlub.hu
+    logo: https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/RTL_Klub_logo.svg/1200px-RTL_Klub_logo.svg.png
+    download: https://onlinestream.live/play.m3u?id=6141&ext=.m3u
+    stream: https://stream.y5.hu:443/stream/stream_rtlklub/hls1/stream.m3u8
+
+  - id: tv2
+    name: TV2
+    type: xspf
+    tpl: m3u
+    epg: tv2.hu
+    logo: https://onlinestream.live/logos/s6143.png
+    download: https://onlinestream.live/play.xspf?id=6143&ch=2&ext=.xspf
+
+  - id: pannon
+    name: Pannon RTV
+    tpl: m3u
+    logo: https://i.imgur.com/Dl9xtgo.png
+    stream: http://stream.unrealhosting.hu:4100/live.m3u8
+
+  - id: euronews
+    name: Euronews
+    tpl: youtube
+    stream: https://www.youtube.com/watch?v=xddy7-kDdkE

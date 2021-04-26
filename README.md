@@ -52,7 +52,7 @@ ___
 
   5. Execute an action inside the container:
      ```bash
-     ./main.sh --action=update_hls
+     ./main.sh --action=create --dryrun --debug
      ```
 
 ___
@@ -64,10 +64,14 @@ ___
 
      Content will be created inside `${HOME}/iptv` directory.
 
-
-  2. Mount `iptv` under the same location in docker.
+  2. Build docker image.
      ```bash
-     docker run -v ${HOME}/iptv:/root/iptv --rm --name iptv... fabrik85/iptv-channels
+     docker build --tag iptv --file ${PWD}/docker/Dockerfile .
+     ```
+
+  3. Mount `iptv` under the same location in docker.
+     ```bash
+     docker run -v ${HOME}/iptv:/root/iptv --rm --name iptv... iptv:latest
      ```
 
 ___
