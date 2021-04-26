@@ -50,7 +50,7 @@ tv:
     tpl: m3u
     epg: Spektrum.hu
     logo: https://mindigtv.hu/resize/wLgASjLig4.jpg
-    stream: https://onlinestream.live/play.m3u?id=6749&ext=.m3u
+    download: https://onlinestream.live/play.m3u?id=6749&ext=.m3u
 
   - id: viasat3
     name: Viasat 3
@@ -58,7 +58,7 @@ tv:
     tpl: m3u
     epg: Viasat3.hu
     logo: https://static.epg.best/hu/Viasat3.hu.png
-    stream: https://onlinestream.live/play.xspf?id=5911&ch=1&ext=.xspf
+    download: https://onlinestream.live/play.xspf?id=5911&ch=1&ext=.xspf
 
   - id: viasat6
     name: Viasat 6
@@ -66,7 +66,7 @@ tv:
     tpl: m3u
     epg: Viasat6.hu
     logo: https://static.epg.best/hu/Viasat6.hu.png
-    stream: https://onlinestream.live/play.xspf?id=6236&ch=1&ext=.xspf
+    download: https://onlinestream.live/play.xspf?id=6236&ch=1&ext=.xspf
 
   - id: natgeowild
     name: NatGeo Wild
@@ -74,4 +74,4 @@ tv:
     tpl: m3u
     epg: NatGeoWild.hu
     logo: https://static.epg.best/hu/NatGeoWild.hu.png
-    stream: https://onlinestream.live/play.xspf?id=5937&ch=1&ext=.xspf
+    download: https://onlinestream.live/play.xspf?id=5937&ch=1&ext=.xspf

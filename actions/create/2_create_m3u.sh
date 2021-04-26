@@ -32,9 +32,7 @@ function getRemoteStreamURL() {
     if [[ $(du -k "${LOCAL_DIR}/${id}" | cut -f1) -le 1 ]]; then
       __msg_info_color "Channel source: ${LOCAL_DIR}/${id} is empty!"
     # Check if pattern (e.g. #EXTM3U) exits in downloaded file.
-    elif [[ "${type}" == "xspf" ]] && [[ -z $(awk "${SEARCH_PATTERN}" "${LOCAL_DIR}/${id}") ]]; then
-      __msg_info_color "Search pattern '${SEARCH_PATTERN}' not found in ${LOCAL_DIR}/${id}!"
-    elif [[ -z $(grep -A1 "${SEARCH_PATTERN}" "${LOCAL_DIR}/${id}" | tail -1) ]]; then
+    elif [[ "${type}" != "xspf" ]] && [[ -z $(grep -A1 "${SEARCH_PATTERN}" "${LOCAL_DIR}/${id}" | tail -1) ]]; then
       __msg_info_color "Search pattern '${SEARCH_PATTERN}' not found in ${LOCAL_DIR}/${id}!"
     fi
   fi
@@ -63,17 +61,6 @@ function insertIntoM3u() {
     else
       stream=$(grep -A1 "${SEARCH_PATTERN}" "${LOCAL_DIR}/${id}" | tail -1)
     fi
-  fi
-
-  if [[ "${ADEBUG}" -eq 0 ]]; then
-    printf "%s\n" ""
-    __msg_info_color "Variables used for sed command:"
-    printf "  %s\n" "id=${id}"
-    printf "  %s\n" "name=${name}"
-    printf "  %s\n" "epg=${epg}"
-    printf "  %s\n" "logo=${logo}"
-    printf "  %s\n" "stream=${stream}"
-    printf "%s\n" ""
   fi
 
   if [[ -n "${stream}" ]] && [[ "${stream}" != "null" ]]; then
