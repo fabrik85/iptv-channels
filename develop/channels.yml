@@ -54,11 +54,11 @@ tv:
 
   - id: hbo
     name: HBO
-    type: extm3u
+    type: extinf1
     tpl: m3u
     epg: HBO.hu
     logo: https://onlinestream.live/logos/s7069.png
-    download: https://onlinestream.live/main.cgi?search=&broad=7&feat=&chtype=&server=&format=&sort=sorttv&fp=20&p=2#
+    download: https://onlinestream.live/play.m3u?id=7069&ext=.m3u
 
   - id: izauratv
     name: Izaura TV
@@ -66,7 +66,7 @@ tv:
     tpl: m3u
     epg: IzauraTV.hu
     logo: https://onlinestream.live/logos/s6163.png
-    download: https://onlinestream.live/play.m3u?id=6749&ext=.m3u
+    download: https://onlinestream.live/play.m3u?id=6163&ext=.m3u
 
   - id: filmboxpremium
     name: Filmbox Premium
