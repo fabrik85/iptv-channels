@@ -9,8 +9,8 @@ export DRY_RUN=1
 # Multiple steps defined as colon separated string (e.g. 5:6:7:8:9:10:11)
 export SKIP=""
 
-# Run in debug mode. (var name: DEBUG already used in helper.sh so use ADEBUG instead.)
-export ADEBUG=1
+# Run in debug mode. (var name: DEBUG already used in helper.sh so use __DEBUG instead.)
+export __DEBUG=1
 
 # ===========================
 # Function Definitions
@@ -22,7 +22,7 @@ function main() {
   source "${ROOT_DIR}/actions/${ACTION}/vars.sh"
 
   if [[ "${ENV:-}" == 'dev' ]]; then
-    ADEBUG=0
+    __DEBUG=0
   fi
 }
 
@@ -35,7 +35,7 @@ function getConfig() {
       --dryrun)
         DRY_RUN=0 ;;
       --debug)
-        ADEBUG=0 ;;
+        __DEBUG=0 ;;
       --skip-steps=*)
         readonly SKIP="${option//--skip-steps=/}" ;;
     esac

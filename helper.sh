@@ -8,32 +8,69 @@ export UNKNOWN_MSG="UNKNOWN_EXCEPTION"
 export OVERALL_RESULT="$SUCCESS_MSG"
 export LOG_DIR=""
 
-export RED="\033[0;31m"
-export GREEN="\033[0;32m"
-export YELLOW="\033[0;33m"
-export COLOR_OFF="\033[0m"
+PFRED=$'\e[1;31m'
+PFGRN=$'\e[1;32m'
+PFYEL=$'\e[1;33m'
+#PFBLU=$'\e[1;34m'
+PFMAG=$'\e[1;35m'
+PFCYN=$'\e[1;36m'
+PFEND=$'\e[0m'
 
-# Set log defaults
-[[ -z "${DEBUG:-}" ]] && export DEBUG=1
-[[ -z "${INFO:-}" ]] && export INFO=1
-[[ -z "${ERROR:-}" ]] && export ERROR=1
+### ======================= ###
+###   Message with colour   ###
+### ======================= ###
+function __msg_yellow() {
+  printf "%s\n" "${PFYEL}$*${PFEND}"
+}
+
+function __msg_green() {
+  printf "%s\n" "${PFGRN}$*${PFEND}"
+}
+
+function __msg_red() {
+  printf "%s\n" "${PFRED}$*${PFEND}"
+}
+
+function __msg_cyan() {
+  printf "%s\n" "${PFCYN}$*${PFEND}"
+}
+
+function __msg_magenta() {
+  printf "%s\n" "${PFMAG}$*${PFEND}"
+}
+
+### ======================= ###
+###    Message with type    ###
+### ======================= ###
+function __msg_info() {
+  printf "%s\n" "[INFO]: $*"
+}
 
 function __msg_error() {
-  [[ "${ERROR}" == "1" ]] && echo -e "${RED}[ERROR]: $*${COLOR_OFF}"
+  __msg_red "[ERROR]: $*"
+}
+
+function __msg_warning() {
+  __msg_magenta "[WARNING]: $*"
 }
 
 function __msg_debug() {
-  [[ "${DEBUG}" == "1" ]] && echo -e "${GREEN}[DEBUG]: $*${COLOR_OFF}"
+  if [[ "${__DEBUG:-}" -eq 0 ]]; then
+    __msg_cyan "[DEBUG]: $*"
+  fi
 }
 
-function __msg_info() {
-  [[ "${INFO}" == "1" ]] && echo -e "[INFO]: $*"
+function __msg_info_green() {
+  __msg_green "[INFO]: $*"
 }
 
-function __msg_info_color() {
-  [[ "${INFO}" == "1" ]] && echo -e "${YELLOW}[INFO]: $*${COLOR_OFF}"
+function __msg_info_green_white() {
+  echo -e "\e[1;97;42m[INFO]: $*\e[0m"
 }
 
+### ======================= ###
+###   Framework Functions   ###
+### ======================= ###
 # ${1} - Filename
 function __get_asset_path() {
   echo "${ROOT_DIR}/actions/${ACTION}/asset/${1}"
@@ -147,7 +184,12 @@ function sendSlackNotification() {
 function triggerNotification() {
   local slack_definitions
 
-  __msg_debug "Trigger notification called for ${1}"
+  # Prevent sending notification under local development
+  if [[ "${ENV:-}" == 'dev' ]]; then
+    return 0
+  fi
+
+  __msg_debug "Trigger => notify:${1}"
 
   if checkNotificationConfig "${1}"; then
       EMAIL_LIST=""
@@ -202,7 +244,9 @@ function run() {
   printf '\n%*s\n' "${cols}" '' | tr ' ' =
 
   file="${ROOT_DIR}/actions/${ACTION}/${file}"
-  __msg_debug "Execute: '${file}' '${args}'"
+  printf "\n";
+  __msg_yellow "[START]: Execute: '${file}' '${args}'"
+  printf "\n"
 
   local filepath="${file:-}"
 
@@ -210,7 +254,7 @@ function run() {
   filename="$(basename "${filepath}")"
   STATUS[$filename]="STARTED"
   SEQUENCE+=("${filename}")
-
+  # Run the relevant step (e.g. 1_set_lock.sh)
   { time source "${filepath}" "${args}"; }
   local status_code=$?
 
@@ -219,7 +263,8 @@ function run() {
     local run_time
     run_time="$(tac "${LOG_DIR}/RUN_LOG.txt" | grep -m1 "real")"
     RUNTIME[$filename]="${run_time//real/}";
-    __msg_info "Successfully executed ${filename}"
+    printf "\n"
+    __msg_yellow "[END]: Success - ${file}"
 
     return "${SUCCESS}";
   else
@@ -227,7 +272,8 @@ function run() {
     run_time="$(tac "${LOG_DIR}/RUN_LOG.txt" | grep -m1 "real")"
     RUNTIME[$filename]="${run_time//real/}";
     STATUS[$filename]="$ERROR_MSG";
-    __msg_debug "Failed to execute ${filename}"
+    printf "\n"
+    __msg_red "[END]: Failed - ${file}"
 
     return "${FAILURE}";
   fi

@@ -9,13 +9,21 @@ tv:
 #    download: https://onlinestream.live/play.m3u?id=6141&ext=.m3u
     stream: https://stream.y5.hu:443/stream/stream_rtlklub/hls1/stream.m3u8
 
-  - id: tv2
-    name: TV2
+#  - id: tv2
+#    name: TV2
+#    type: xspf
+#    tpl: m3u
+#    epg: tv2.hu
+#    logo: https://onlinestream.live/logos/s6143.png
+#    download: https://onlinestream.live/play.xspf?id=6143&ch=1&ext=.xspf
+
+  - id: supertv2
+    name: Super TV2
     type: xspf
     tpl: m3u
-    epg: tv2.hu
-    logo: https://onlinestream.live/logos/s6143.png
-    download: https://onlinestream.live/play.xspf?id=6143&ch=1&ext=.xspf
+    epg: SuperTV2.hu
+    logo: https://onlinestream.live/logos/s6723.png
+    download: https://onlinestream.live/play.xspf?id=6723&ch=1&ext=.xspf
 
   - id: pannon
     name: Pannon RTV
@@ -23,10 +31,26 @@ tv:
     logo: https://i.imgur.com/Dl9xtgo.png
     stream: http://stream.unrealhosting.hu:4100/live.m3u8
 
-  - id: euronews
-    name: Euronews
-    tpl: youtube
-    stream: https://www.youtube.com/watch?v=xddy7-kDdkE
+  - id: discovery_science
+    name: Discovery Science
+    type: xspf
+    tpl: m3u
+    epg: DiscoveryScience.hu
+    logo: https://onlinestream.live/logos/s7326.png
+    download: https://onlinestream.live/play.xspf?id=7326&ch=1&ext=.xspf
+
+  - id: moziplusz
+    name: Mozi+
+    type: xspf
+    tpl: m3u
+    epg: MoziPlus.hu
+    logo: https://static.epg.best/hu/MoziPlus.hu.png
+    download: https://onlinestream.live/play.xspf?id=6152&ch=1&ext=.xspf
+
+#  - id: euronews
+#    name: Euronews
+#    tpl: youtube
+#    stream: https://www.youtube.com/watch?v=xddy7-kDdkE
 
   - id: filmplusz
     name: Film+
@@ -44,21 +68,39 @@ tv:
     logo: https://onlinestream.live/logos/s6142.png
     stream: https://stream.y5.hu:443/stream/stream_rtl2/hls1/stream.m3u8
 
-#  - id: spektrum
-#    name: Spektrum
-#    type: extinf1
-#    tpl: m3u
-#    epg: Spektrum.hu
-#    logo: https://mindigtv.hu/resize/wLgASjLig4.jpg
-#    download: https://onlinestream.live/play.m3u?id=6749&ext=.m3u
+  - id: spektrum
+    name: Spektrum
+    type: extinf2
+    tpl: m3u
+    epg: Spektrum.hu
+    logo: https://mindigtv.hu/resize/wLgASjLig4.jpg
+    download: https://onlinestream.live/play.m3u?id=6749&ext=.m3u
 
   - id: hbo
     name: HBO
-    type: extinf1
+    type: extinf3
     tpl: m3u
     epg: HBO.hu
     logo: https://onlinestream.live/logos/s7069.png
     download: https://onlinestream.live/play.m3u?id=7069&ext=.m3u
+#    stream: http://194.76.186.32:8030/play/a004
+
+  - id: hbo2
+    name: HBO 2
+    type: extinf2
+    tpl: m3u
+    epg: HBO2.hu
+    logo: https://static.epg.best/hu/HBO2.hu.png
+    download: https://onlinestream.live/play.m3u?id=7158&ext=.m3u
+#    stream: http://194.76.186.32:8030/play/a002
+
+  - id: automotor
+    name: Auto Motor Sport
+    type: xspf
+    tpl: m3u
+    epg: AutoMotorundSportChannel.de
+    logo: https://static.epg.best/de/AutoMotorundSportChannel.de.png
+    download: https://onlinestream.live/play.xspf?id=7328&ch=1&ext=.xspf
 
   - id: izauratv
     name: Izaura TV
@@ -68,14 +110,22 @@ tv:
     logo: https://onlinestream.live/logos/s6163.png
     download: https://onlinestream.live/play.m3u?id=6163&ext=.m3u
 
+  - id: viasatexplore
+    name: Viasat Explore
+    type: extinf1
+    tpl: m3u
+    epg: ViasatExplore.hu
+    logo: https://static.epg.best/hu/ViasatExplore.hu.png
+    download: https://onlinestream.live/play.m3u?id=7156&ext=.m3u
+
   - id: filmboxpremium
     name: Filmbox Premium
     type: extinf2
     tpl: m3u
     epg: FilmboxPremium.hu
     logo: https://onlinestream.live/logos/s7046.png
-    download: https://onlinestream.live/play.m3u?id=7046&ext=.m3u
-#    stream: http://89.216.39.29:8002/
+#    download: https://onlinestream.live/play.m3u?id=7046&ext=.m3u
+    stream: http://89.216.39.29:8002/
 
   - id: m5
     name: M5
@@ -109,21 +159,29 @@ tv:
     logo: https://static.epg.best/hu/DunaWorld.hu.png
     download: https://onlinestream.live/play.m3u?id=5906&ext=.m3u
 
-#  - id: viasat3
-#    name: Viasat 3
-#    type: xspf
-#    tpl: m3u
-#    epg: Viasat3.hu
-#    logo: https://static.epg.best/hu/Viasat3.hu.png
-#    download: https://onlinestream.live/play.xspf?id=5911&ch=1&ext=.xspf
-#
-#  - id: viasat6
-#    name: Viasat 6
-#    type: xspf
-#    tpl: m3u
-#    epg: Viasat6.hu
-#    logo: https://static.epg.best/hu/Viasat6.hu.png
-#    download: https://onlinestream.live/play.xspf?id=6236&ch=1&ext=.xspf
+  - id: viasat3
+    name: Viasat 3
+    type: xspf
+    tpl: m3u
+    epg: Viasat3.hu
+    logo: https://static.epg.best/hu/Viasat3.hu.png
+    download: https://onlinestream.live/play.xspf?id=5911&ch=1&ext=.xspf
+
+  - id: viasat6
+    name: Viasat 6
+    type: xspf
+    tpl: m3u
+    epg: Viasat6.hu
+    logo: https://static.epg.best/hu/Viasat6.hu.png
+    download: https://onlinestream.live/play.xspf?id=6236&ch=1&ext=.xspf
+
+  - id: natgeo
+    name: National Geographic
+    type: xspf
+    tpl: m3u
+    epg: NatGeo.hu
+    logo: https://onlinestream.live/logos/s5936.png
+    download: https://onlinestream.live/play.xspf?id=5936&ch=1&ext=.xspf
 
   - id: natgeowild
     name: NatGeo Wild
@@ -133,13 +191,13 @@ tv:
     logo: https://static.epg.best/hu/NatGeoWild.hu.png
     download: https://onlinestream.live/play.xspf?id=5937&ch=1&ext=.xspf
 
-  - id: fem3
-    name: FEM3
-    type: extm3u
-    tpl: m3u
-    epg: Fem3.hu
-    logo: https://static.epg.best/hu/Fem3.hu.png
-    download: https://onlinestream.live/play.m3u8?id=6455&ch=1&ext=.m3u8
+#  - id: fem3
+#    name: FEM3
+#    type: extm3u
+#    tpl: m3u
+#    epg: Fem3.hu
+#    logo: https://static.epg.best/hu/Fem3.hu.png
+#    download: https://onlinestream.live/play.m3u8?id=6455&ch=1&ext=.m3u8
 
   - id: lifetv
     name: Life TV
@@ -157,18 +215,18 @@ tv:
     logo: https://onlinestream.live/logos/s7060.png
     download: https://onlinestream.live/play.xspf?id=7060&ch=1&ext=.xspf
 
-#  - id: history
-#    name: History
-#    type: xspf
-#    tpl: m3u
-#    epg: HistoryChannel.hu
-#    logo: https://onlinestream.live/logos/s6745.png
-#    download: https://onlinestream.live/play.xspf?id=6745&ch=1&ext=.xspf
+  - id: history
+    name: History
+    type: extinf1
+    tpl: m3u
+    epg: HistoryChannel.hu
+    logo: https://onlinestream.live/logos/s6745.png
+    download: https://onlinestream.live/play.m3u?id=7325&ext=.m3u
 
-  - id: m1
-    name: M1
-    tpl: youtube
-    stream: https://www.youtube.com/watch?v=AD3FzPaMgSU
+#  - id: m1
+#    name: M1
+#    tpl: youtube
+#    stream: https://www.youtube.com/watch?v=AD3FzPaMgSU
 
   - id: rtlplusz
     name: RTL+
@@ -179,14 +237,14 @@ tv:
     logo: https://static.epg.best/hu/RTLplus.hu.png
     download: https://onlinestream.live/play.m3u?id=6147&ext=.m3u
 
-  - id: disneychannel
-    name: Disney Channel
-    type: extm3u
-    tpl: m3u
-    epg: DisneyChannel.hu
-    logo: https://onlinestream.live/logos/s6767.png
-    download: https://onlinestream.live/play.m3u8?id=6767&ch=1&ext=.m3u8
-#    stream: http://82.197.212.210:8000/play/a12i/index.m3u8
+#  - id: disneychannel
+#    name: Disney Channel
+#    type: extm3u
+#    tpl: m3u
+#    epg: DisneyChannel.hu
+#    logo: https://onlinestream.live/logos/s6767.png
+#    download: https://onlinestream.live/play.m3u8?id=6767&ch=1&ext=.m3u8
+##    stream: http://82.197.212.210:8000/play/a12i/index.m3u8
 
   - id: hirtv
     name: Hír TV
@@ -196,10 +254,10 @@ tv:
     logo: https://static.epg.best/hu/HirTV.hu.png
     download: https://onlinestream.live/play.m3u?id=4740&ext=.m3u
 
-#  - id: moziverzum
-#    name: Moziverzum
-#    type: xspf
-#    tpl: m3u
-#    epg: Moziverzum.hu
-#    logo: https://onlinestream.live/logos/s6720.png
-#    download: https://onlinestream.live/play.xspf?id=6720&ch=1&ext=.xspf
+  - id: moziverzum
+    name: Moziverzum
+    type: xspf
+    tpl: m3u
+    epg: Moziverzum.hu
+    logo: https://onlinestream.live/logos/s6720.png
+    download: https://onlinestream.live/play.xspf?id=6720&ch=1&ext=.xspf

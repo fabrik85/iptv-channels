@@ -4,7 +4,9 @@ This action is creating an .m3u playlist stored in AWS S3
 ## How it's working?
 1. Download playlist definition `.yml` file from AWS S3 bucket (maintained channel lists)
 
-2. Gather all channels which needs to be updated.
+    For local development it copies `/develop/channels.yml` instead of AWS S3 download.
+
+2. Gather all channels which needs to be updated. (defined in `channels.yml`)
 
 3. Write output into an `.m3u` file (playlist)
 

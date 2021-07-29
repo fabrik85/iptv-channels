@@ -37,11 +37,11 @@ function downloadFromS3() {
 }
 
 # Only try to download in case AWS credentials exits.
-if [[ "${ADEBUG}" -eq 0 ]] && [[ -z "${AWS_ACCESS_KEY_ID:-}" || -z "${AWS_SECRET_ACCESS_KEY:-}" ]]; then
-  __msg_info "Download will be not executed! Reason: --debug option enabled & no AWS credentials provided."
+if [[ "${__DEBUG}" -eq 0 ]] && [[ -z "${AWS_ACCESS_KEY_ID:-}" || -z "${AWS_SECRET_ACCESS_KEY:-}" ]]; then
+  __msg_debug "Download will be not executed! Reason: --debug option enabled & no AWS credentials provided."
   DRY_RUN=0
 
-  __msg_info "Copy local file ${ROOT_DIR}/develop/channels.yml to ${LOCAL_YAML_PATH}"
+  __msg_debug "Copy local file ${ROOT_DIR}/develop/channels.yml to ${LOCAL_YAML_PATH}"
   cp "${ROOT_DIR}"/develop/channels.yml "${LOCAL_YAML_PATH}"
 fi
 

@@ -30,10 +30,10 @@ function getRemoteStreamURL() {
 
     # Check file size (it will be 0 in case the channel source removed).
     if [[ $(du -k "${LOCAL_DIR}/${id}" | cut -f1) -le 1 ]]; then
-      __msg_info_color "Channel source: ${LOCAL_DIR}/${id} is empty!"
+      __msg_yellow "[INFO]: Channel source: ${LOCAL_DIR}/${id} is empty!"
     # Check if pattern (e.g. #EXTM3U) exits in downloaded file.
     elif [[ "${type}" != "xspf" ]] && [[ -z $(grep -A1 "${SEARCH_PATTERN}" "${LOCAL_DIR}/${id}" | tail -1) ]]; then
-      __msg_info_color "Search pattern '${SEARCH_PATTERN}' not found in ${LOCAL_DIR}/${id}!"
+      __msg_yellow "[INFO]: Search pattern '${SEARCH_PATTERN}' not found in ${LOCAL_DIR}/${id}!"
     fi
   fi
 }
@@ -100,6 +100,8 @@ function create() {
 
   echo -e "#EXTM3U\n" > "${LOCAL_PATH}"
   find "${LOCAL_DIR}" -type f -name "*.tpl" | sort | xargs cat >> "${LOCAL_PATH}"
+
+  __msg_green "File successfully created at: ${LOCAL_PATH}"
 }
 
 create

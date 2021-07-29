@@ -19,9 +19,9 @@ function uploadToS3() {
   fi
 }
 
-# Only try to upload in case AWS credentials exits.
-if [[ "${ADEBUG}" -eq 0 ]]; then
-  __msg_info "Upload will be not executed! Reason: --debug option enabled."
+# Only try to upload in case AWS credentials exits or not --debug.
+if [[ "${__DEBUG}" -eq 0 ]] || [[ -z "${AWS_ACCESS_KEY_ID:-}" || -z "${AWS_SECRET_ACCESS_KEY:-}" ]]; then
+  __msg_debug "Upload will be not executed! Reason: --debug option enabled or no AWS credentials provided."
   DRY_RUN=0
 fi
 

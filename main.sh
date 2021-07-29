@@ -14,22 +14,15 @@ export FAILURE=240
 
 PROJECT_DIR="iptv"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-UNKNOWN_ARGS=""
-YAML=$(cat "${ROOT_DIR}"/config.yml)
-
 #shellcheck source=/dev/null
 source "${ROOT_DIR}"/helper.sh
 
-function setupFrameworkDirs() {
-  if [[ ! -d "${HOME}/${PROJECT_DIR}/logs" ]]; then
-    __msg_info "Setting up logs directory..."
-    mkdir -p "${HOME}/${PROJECT_DIR}/logs"
-  fi
-}
+UNKNOWN_ARGS=""
+YAML=$(cat "${ROOT_DIR}"/config.yml)
 
 function setupLogDir() {
   LOG_DIR="$(mktemp -d)"
-  __msg_info "LOG_DIR initialized at : ${LOG_DIR}/RUN_LOG.txt"
+  __msg_green "Log file created at: ${LOG_DIR}/RUN_LOG.txt"
 }
 
 function getCleanupScript() {
@@ -39,7 +32,7 @@ function getCleanupScript() {
 function handleExit() {
   local exit_signal=$?
 
-  echo "EXIT SIGNAL : $exit_signal - $(kill -l $exit_signal 2>/dev/null || echo "UNKNOWN")"
+#  echo "EXIT SIGNAL : $exit_signal - $(kill -l $exit_signal 2>/dev/null || echo "UNKNOWN")"
 
   if [[ "$exit_signal" != "${SUCCESS}" ]]; then
     if [[ -v SEQUENCE[@] && "${#SEQUENCE[@]}" -gt 0 ]]; then
@@ -53,22 +46,33 @@ function handleExit() {
       else
         if [[ "${STATUS[$last_element]}" != "$SUCCESS_MSG" ]]; then
           STATUS[$last_element]="${UNKNOWN_MSG}"
+          # shellcheck disable=SC2034
           RUNTIME[$last_element]="-"
+          # shellcheck disable=SC2034
           OVERALL_RESULT="${UNKNOWN_MSG}"
         fi
       fi
     fi
     if getCleanupScript > /dev/null; then
-      run "$(getCleanupScript)"
+      run "$(getCleanupScript)" 1
     fi
   else
     if getCleanupScript > /dev/null; then
-      run "$(getCleanupScript)" >> "${LOG_DIR}/RUN_LOG.txt" 2>&1
+      #run "$(getCleanupScript)" >> "${LOG_DIR}/RUN_LOG.txt" 2>&1
+      run "$(getCleanupScript)" 0 > >(tee -a "${LOG_DIR}/RUN_LOG.txt") 2> >(tee -a "${LOG_DIR}/RUN_LOG.txt" >&2)
     fi
   fi
 
   triggerNotification "at_complete"
-  cat "${LOG_DIR}/RUN_LOG.txt"
+  #cat "${LOG_DIR}/RUN_LOG.txt"
+
+  printf "\n"
+  if [[ "$exit_signal" == "${SUCCESS}" ]]; then
+    __msg_green "EXIT SIGNAL : $exit_signal"
+  else
+    __msg_red "EXIT SIGNAL : $exit_signal - $(kill -l $exit_signal 2>/dev/null || echo "UNKNOWN")"
+  fi
+  printf "\n"
 }
 
 function getMainConfig() {
@@ -87,7 +91,10 @@ function getMainConfig() {
     __msg_error "'--action=' argument were not passed.. [Please check]"
     return "${FAILURE}"
   else
-    __msg_debug "Triggering '$ACTION' action."
+    local triggering_datetime
+
+    triggering_datetime=$(date)
+    __msg_green "Triggering '$ACTION' action at $triggering_datetime"
   fi
 }
 
@@ -99,7 +106,6 @@ function main() {
   triggerNotification "at_start"
 
   steps=$(echo "${YAML}" | yaml2json | jq -r ".${ACTION}.scripts[]?")
-  __msg_debug "steps: $steps"
 
   for script in ${steps}; do
     run "${script}"
@@ -110,6 +116,5 @@ function main() {
 
 trap handleExit 0 SIGHUP SIGINT SIGQUIT SIGABRT SIGTERM
 
-setupFrameworkDirs
 setupLogDir
 main "$@"
