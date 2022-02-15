@@ -79,14 +79,14 @@ function __get_asset_path() {
 function __get_property() {
   local property_value
 
-  property_value=$(echo "${YAML}" | yaml2json | jq -r --arg PROPERTY "$1" '.vars | .[$PROPERTY]')
+  property_value=$(echo "${YAML}" | yaml2json - | jq -r --arg PROPERTY "$1" '.vars | .[$PROPERTY]')
   echo "$property_value"
 }
 
 function checkNotificationConfig() {
   local is_config_defined
 
-  is_config_defined=$(echo "${YAML}" | yaml2json | jq -r ".${ACTION}.notify.${1}")
+  is_config_defined=$(echo "${YAML}" | yaml2json - | jq -r ".${ACTION}.notify.${1}")
 
   if [[ "$is_config_defined" == "true" ]]; then
       __msg_debug "Notification set to 'true'.. Will trigger an alert.."
@@ -161,8 +161,8 @@ function sendSlackNotification() {
 
   __msg_debug "Continuing further with slack notification for ${1}...."
 
-  slack_webhook="$(echo "${YAML}" | yaml2json | jq -r ".${ACTION}.notify.slack.webhook")"
-  failure_flag_status="$(echo "${YAML}" | yaml2json | jq -r ".${ACTION}.notify.slack.only_on_failure")"
+  slack_webhook="$(echo "${YAML}" | yaml2json - | jq -r ".${ACTION}.notify.slack.webhook")"
+  failure_flag_status="$(echo "${YAML}" | yaml2json - | jq -r ".${ACTION}.notify.slack.only_on_failure")"
 
   __msg_debug "Checking for slack configurations..."
 
@@ -193,14 +193,14 @@ function triggerNotification() {
 
   if checkNotificationConfig "${1}"; then
       EMAIL_LIST=""
-      for mail in $(echo "${YAML}" | yaml2json | jq -r ".${ACTION}.notify.email.list[]"); do
+      for mail in $(echo "${YAML}" | yaml2json - | jq -r ".${ACTION}.notify.email.list[]"); do
         [[ -z "${EMAIL_LIST}" ]] && EMAIL_LIST="${mail}" || EMAIL_LIST="${EMAIL_LIST} ${mail}"
       done
 
       __msg_debug "Emails: ${EMAIL_LIST}"
 
       if [[ -n "${EMAIL_LIST}" ]]; then
-        failure_flag_status="$(echo "${YAML}" | yaml2json | jq -r ".${ACTION}.notify.email.only_on_failure")"
+        failure_flag_status="$(echo "${YAML}" | yaml2json - | jq -r ".${ACTION}.notify.email.only_on_failure")"
         if [[ "${failure_flag_status}" != "null" && "${failure_flag_status}" == "true" ]]; then
           __msg_debug "'only_on_failure' flag is set and value is '${failure_flag_status}'"
           if [[ "${OVERALL_RESULT}" != "${SUCCESS_MSG}" ]]; then
@@ -213,7 +213,7 @@ function triggerNotification() {
         fi
       fi
 
-      slack_definitions="$(echo "${YAML}" | yaml2json | jq -r ".${ACTION}.notify.slack")"
+      slack_definitions="$(echo "${YAML}" | yaml2json - | jq -r ".${ACTION}.notify.slack")"
       __msg_info "Got slack definition block as ${slack_definitions}"
 
       if [[ "$slack_definitions" != "null" ]]; then

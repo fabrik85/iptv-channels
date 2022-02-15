@@ -13,12 +13,12 @@ RUN apt-get update \
         jq=1.5+dfsg-2 \
         mutt=1.9.* \
         libsasl2-modules=2.1.* \
+        libghc-yaml-dev \
     && pip3 install wheel==0.34.* \
     && pip3 install awscli==1.18.* --upgrade \
     && rm -rf /var/lib/apt/lists/*
 
 # Infrastructure files
-COPY docker/resource/yaml2json /usr/bin/
 COPY docker/resource/mutt /root/.mutt
 
 # Application files

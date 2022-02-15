@@ -26,7 +26,7 @@ function setupLogDir() {
 }
 
 function getCleanupScript() {
-  echo "${YAML}" | yaml2json | jq -er ".${ACTION}.cleanup"
+  echo "${YAML}" | yaml2json - | jq -er ".${ACTION}.cleanup"
 }
 
 function handleExit() {
@@ -102,10 +102,10 @@ function main() {
   local steps
   getMainConfig "$@"
 
-  run "$(echo "${YAML}" | yaml2json | jq -er ".${ACTION}.entrypoint")" "$UNKNOWN_ARGS"
+  run "$(echo "${YAML}" | yaml2json - | jq -er ".${ACTION}.entrypoint")" "$UNKNOWN_ARGS"
   triggerNotification "at_start"
 
-  steps=$(echo "${YAML}" | yaml2json | jq -r ".${ACTION}.scripts[]?")
+  steps=$(echo "${YAML}" | yaml2json - | jq -r ".${ACTION}.scripts[]?")
 
   for script in ${steps}; do
     run "${script}"

@@ -93,7 +93,7 @@ function create() {
 
   yaml=$(cat "${LOCAL_YAML_PATH}")
   i=0
-  echo "${yaml}" | yaml2json | jq -r -c '.tv[]?' | while read -r channel; do
+  echo "${yaml}" | yaml2json - | jq -r -c '.tv[]?' | while read -r channel; do
     i=$((i + 1))
     insertIntoM3u "${channel}" "${i}";
   done
