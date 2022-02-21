@@ -10,7 +10,8 @@ services:
       - data-volume:/root/iptv
     build:
       context: ./
-      dockerfile: docker/Dockerfile
+#      dockerfile: docker/Dockerfile
+      dockerfile: docker/alpine/Dockerfile
     environment:
       ENV: dev
 
