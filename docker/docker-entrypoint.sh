@@ -11,10 +11,10 @@ function exitWithUsage() {
   echo ""
   echo "  Usage: COMMAND [OPTION]"
   echo ""
-  echo "     create [--dry-run] [--skip-steps]"
+  echo "     createm3u [--dry-run] [--skip-steps]"
   echo "            Create new HLS file."
-  echo "     update [--dry-run] [--skip-steps]"
-  echo "            Update existing HLS file."
+  echo "     createyaml [--dry-run] [--skip-steps]"
+  echo "            Create new YAML file. (Source of the HLS creation)."
   echo "     debug"
   echo "            Do nothing else just prevent exiting the container."
   echo ""
@@ -120,11 +120,11 @@ function main() {
       # Keep the container running for debugging (do nothing just prevent exiting the container).
       /usr/bin/tail -f /dev/null
       ;;
-    "create")
-      /home/src/main.sh --action=create "${args[@]}"
+    "createm3u")
+      /home/src/main.sh --action=createM3u "${args[@]}"
       ;;
-    "update")
-      /home/src/main.sh --action=update "${args[@]}"
+    "createyaml")
+      /home/src/main.sh --action=createYaml "${args[@]}"
       ;;
     *)
       exitWithUsage
