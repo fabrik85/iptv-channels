@@ -24,6 +24,8 @@ COPY docker/resource/mutt /root/.mutt
 # Application files
 COPY config.yml helper.sh main.sh /home/src/
 COPY actions /home/src/actions
+COPY input /home/src/input
+COPY output /home/src/output
 
 # ENTRYPOINT
 COPY docker/docker-entrypoint.sh /usr/bin/

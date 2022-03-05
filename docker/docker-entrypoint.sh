@@ -28,11 +28,11 @@ function exitWithUsage() {
   echo ""
   echo ""
   echo "EXAMPLE"
-  echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv create --dry-run"
+  echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv createyaml --dry-run"
   echo ""
   echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv debug"
   echo ""
-  echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv update --skip-steps=2:3"
+  echo "     docker run --rm --name iptv docker.bestfabrik.de/iptv createm3u --skip-steps=2:3"
   exit 2
 }
 
