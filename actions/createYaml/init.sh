@@ -3,14 +3,14 @@ __DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export __DIR
 
 # Run without any effect (simulate).
-export DRYRUN=1
+export DRY_RUN=1
 
 # Step files has to be skipped.
 # Multiple steps defined as colon separated string (e.g. 5:6:7:8:9:10:11)
 export SKIP=""
 
-# Run in debug mode. (var name: DEBUG already used in helper.sh so use ADEBUG instead.)
-export ADEBUG=1
+# Run in debug mode. (var name: DEBUG already used in helper.sh so use __DEBUG instead.)
+export __DEBUG=1
 
 # ===========================
 # Function Definitions
@@ -22,8 +22,16 @@ function main() {
   source "${ROOT_DIR}/actions/${ACTION}/vars.sh"
 
   if [[ "${ENV:-}" == 'dev' ]]; then
-    ADEBUG=0
+    __DEBUG=0
   fi
+
+  LOCAL_DIR="${ROOT_DIR}/${LOCAL_DIR_NAME}/${ACTION}/$(date +%Y-%m-%d-%H-%M-%S)"
+
+  if [[ -d ${LOCAL_DIR} ]]; then
+    rm -rf "${LOCAL_DIR}"
+  fi
+
+  mkdir -p "${LOCAL_DIR}"
 }
 
 function getConfig() {
@@ -32,10 +40,10 @@ function getConfig() {
     option="$(echo "${option}" | tr "[:upper:]" "[:lower:]")"
 
     case "${option}" in
-      --dryrun)
-        readonly DRYRUN=0 ;;
+      --dry-run)
+        DRY_RUN=0 ;;
       --debug)
-        ADEBUG=0 ;;
+        __DEBUG=0 ;;
       --skip-steps=*)
         readonly SKIP="${option//--skip-steps=/}" ;;
     esac

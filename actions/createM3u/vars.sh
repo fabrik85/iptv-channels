@@ -1,4 +1,4 @@
-#PROJECT_DIR="iptv" defined in /main.sh
+export PROJECT_DIR=".last-run"
 export S3_BUCKET="bestfabrik.de"
 export PLAYLIST="siptv.m3u"
 export CHANNELS="channels.yml"

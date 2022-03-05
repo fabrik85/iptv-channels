@@ -12,6 +12,9 @@ export SKIP=""
 # Run in debug mode. (var name: DEBUG already used in helper.sh so use __DEBUG instead.)
 export __DEBUG=1
 
+# If specified no download will happen.
+export CHANNELS_FILE=""
+
 # ===========================
 # Function Definitions
 # ===========================
@@ -36,6 +39,8 @@ function getConfig() {
         DRY_RUN=0 ;;
       --debug)
         __DEBUG=0 ;;
+      --channels-file=*)
+        CHANNELS_FILE="${option//--channels-file=/}" ;;
       --skip-steps=*)
         readonly SKIP="${option//--skip-steps=/}" ;;
     esac
@@ -56,6 +61,12 @@ function validateConfig() {
       __msg_error "Error: Defining '--skip-steps' (e.g. '--skip-steps=1:5' will skip step 1 and step 5)"
       return "${FAILURE}"
     fi
+  fi
+# --channels-file
+  if [[ ! -f "${CHANNELS_FILE}" ]]; then
+    __msg_warning "File not exists! ( --channels-file=${CHANNELS_FILE} )"
+    __msg_info "Ignore --channels-file option and use AWS S3 for downloading channels YAML file."
+    CHANNELS_FILE=""
   fi
 
   return "${SUCCESS}"

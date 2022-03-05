@@ -19,13 +19,14 @@ tv:
 #    download: https://onlinestream.live/play.m3u?id=6141&ext=.m3u
     stream: https://stream.y5.hu:443/stream/stream_rtlklub/hls1/stream.m3u8
 
-#  - id: tv2
-#    name: TV2
-#    type: xspf
-#    tpl: m3u
-#    epg: tv2.hu
-#    logo: https://onlinestream.live/logos/s6143.png
-#    download: https://onlinestream.live/play.xspf?id=6143&ch=1&ext=.xspf
+  - id: tv2
+    name: TV2
+    onlinestream: TV2
+    type: xspf
+    tpl: m3u
+    epg: tv2.hu
+    logo: https://onlinestream.live/logos/s6143.png
+    download: https://onlinestream.live/play.xspf?id=6143&ch=1&ext=.xspf
 
 #  - id: supertv2
 #    name: Super TV2
@@ -37,9 +38,11 @@ tv:
 
   - id: pannon
     name: Pannon RTV
+    onlinestream: ignore
     tpl: m3u
     logo: https://i.imgur.com/Dl9xtgo.png
-    stream: http://stream.unrealhosting.hu:4100/live.m3u8
+    stream: https://stream.nmih.hu:4102/live.m3u8
+#    download: https://onlinestream.live/play.m3u8?id=4695&ch=1&ext=.m3u8
 
 #  - id: discovery_science
 #    name: Discovery Science
@@ -64,6 +67,7 @@ tv:
 
   - id: filmplusz
     name: Film+
+    onlinestream: Film+
     type: extinf1
     tpl: m3u
     epg: FilmPlus.hu
@@ -72,6 +76,7 @@ tv:
 
   - id: rtl2
     name: RTL2
+    onlinestream: RTL2
     type: extinf1
     tpl: m3u
     epg: RTL2.hu
@@ -80,6 +85,7 @@ tv:
 
   - id: atv
     name: ATV
+    onlinestream: ATV
     type: extinf3
     tpl: m3u
     epg: MagyarATV.hu
@@ -96,6 +102,7 @@ tv:
 
   - id: hbo
     name: HBO
+    onlinestream: HBO
     type: extm3u
     tpl: m3u
     epg: HBO.hu
@@ -104,6 +111,7 @@ tv:
 
   - id: hbo2
     name: HBO 2
+    onlinestream: HBO2
     type: extm3u
     tpl: m3u
     epg: HBO2.hu
@@ -112,6 +120,7 @@ tv:
 
   - id: hbo3
     name: HBO 3
+    onlinestream: HBO3
     type: extm3u
     tpl: m3u
     epg: HBO3.hu
@@ -128,6 +137,7 @@ tv:
 
   - id: izauratv
     name: Izaura TV
+    onlinestream: Izaura TV - A romantikus sorozatok rabjainak
     type: extinf1
     tpl: m3u
     epg: IzauraTV.hu
@@ -153,6 +163,7 @@ tv:
 
   - id: m5
     name: M5
+    onlinestream: M5
     type: extinf2
     tpl: m3u
     epg: m5.hu
@@ -177,6 +188,7 @@ tv:
 
   - id: cooltv
     name: Cool TV
+    onlinestream: Cool TV
     type: extinf1
     tpl: m3u
     epg: Cool.hu
@@ -185,6 +197,7 @@ tv:
 
   - id: dunaworld
     name: Duna World
+    onlinestream: Duna World / M4 Sport+
     type: extinf2
     tpl: m3u
     epg: DunaWorld.hu
@@ -193,6 +206,7 @@ tv:
 
   - id: amc
     name: AMC
+    onlinestream: AMC
     type: extm3u
     tpl: m3u
     epg: AMC.hu
@@ -217,14 +231,16 @@ tv:
 
   - id: natgeo
     name: National Geographic
+    onlinestream: National Geographic
     type: xspf
     tpl: m3u
-    epg: NatGeo.hu
+    epg: NationalGeographic.hu
     logo: https://onlinestream.live/logos/s5936.png
     download: https://onlinestream.live/play.xspf?id=5936&ch=1&ext=.xspf
 
   - id: natgeowild
     name: NatGeo Wild
+    onlinestream: National Geographic Wild
     type: xspf
     tpl: m3u
     epg: NatGeoWild.hu
@@ -233,6 +249,7 @@ tv:
 
   - id: fem3
     name: FEM3
+    onlinestream: FEM3
     type: extm3u
     tpl: m3u
     epg: Fem3.hu
@@ -241,11 +258,21 @@ tv:
 
   - id: lifetv
     name: Life TV
+    onlinestream: Life TV
     type: extinf1
     tpl: m3u
     epg: Lifenetwork.hu
     logo: https://onlinestream.live/logos/s6603.png
     download: https://onlinestream.live/play.m3u?id=6603&ext=.m3u
+
+  - id: rtv2
+    name: RTV 2
+    onlinestream: ignore
+    type: extinf1
+    tpl: m3u
+    logo: https://onlinestream.live/logos/5313.png
+#    download: https://onlinestream.live/play.m3u?id=5313&ext=.m3u
+    stream: http://212.200.255.151:80/rtv2
 
 #  - id: tv2comedy
 #    name: TV2 Comedy
@@ -270,6 +297,7 @@ tv:
 
   - id: rtlplusz
     name: RTL+
+    onlinestream: RTL+
     type: extinf1
     tpl: m3u
     epg: RTLplus.hu
@@ -278,6 +306,7 @@ tv:
 
   - id: disneychannel
     name: Disney Channel
+    onlinestream: Disney Channel
     type: extm3u
     tpl: m3u
     epg: DisneyChannel.hu
@@ -287,6 +316,7 @@ tv:
 
   - id: hirtv
     name: Hír TV
+    onlinestream: Hír TV
     type: extinf1
     tpl: m3u
     epg: HirTV.hu

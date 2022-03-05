@@ -13,12 +13,6 @@ if [[ $(_isSkippedStep "${__STEP}") == "0" ]]; then
   return "${SUCCESS}"
 fi
 
-function prepare() {
-  if [[ ! -d ${LOCAL_DIR} ]]; then
-    mkdir -p "${LOCAL_DIR}"
-  fi
-}
-
 function downloadFromS3() {
   local s3_path="${1}"
   local disk_path="${2}"
@@ -37,15 +31,21 @@ function downloadFromS3() {
 }
 
 # Only try to download in case AWS credentials exits.
-if [[ "${__DEBUG}" -eq 0 ]] && [[ -z "${AWS_ACCESS_KEY_ID:-}" || -z "${AWS_SECRET_ACCESS_KEY:-}" ]]; then
+if [[ -n "${CHANNELS_FILE}" ]] && [[ -f "${CHANNELS_FILE}" ]]; then
+    __msg_info "Use ${CHANNELS_FILE} as channel source."
+    if [[ "${CHANNELS_FILE}" != "${LOCAL_YAML_PATH}" ]]; then
+      cp "${CHANNELS_FILE}" "${LOCAL_YAML_PATH}"
+    fi
+
+elif [[ "${__DEBUG}" -eq 0 ]] && [[ -z "${AWS_ACCESS_KEY_ID:-}" || -z "${AWS_SECRET_ACCESS_KEY:-}" ]]; then
   __msg_debug "Download will be not executed! Reason: --debug option enabled & no AWS credentials provided."
   DRY_RUN=0
 
   __msg_debug "Copy local file ${ROOT_DIR}/develop/channels.yml to ${LOCAL_YAML_PATH}"
   cp "${ROOT_DIR}"/develop/channels.yml "${LOCAL_YAML_PATH}"
+else
+  downloadFromS3 "${S3_YAML_PATH}" "${LOCAL_YAML_PATH}"
 fi
 
-prepare
-downloadFromS3 "${S3_YAML_PATH}" "${LOCAL_YAML_PATH}"
 # Restore DRY_RUN value
 postAction

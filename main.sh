@@ -12,7 +12,6 @@ set -o pipefail #                  => don't hide errors within pipes
 export SUCCESS=0
 export FAILURE=240
 
-PROJECT_DIR="iptv"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 #shellcheck source=/dev/null
 source "${ROOT_DIR}"/helper.sh

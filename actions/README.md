@@ -2,12 +2,14 @@
 
 Actions contain all the logic to produce an .m3u file.
 
-### create
+### createM3u
 ___
 
-Create action is used to create a new .m3u file.
-* [Create IPTV Playlist (.m3u file)](create/README.md)
+createM3u action is used to create a new .m3u file.
+* [Create IPTV Playlist (.m3u file)](createM3u/README.md)
 
-### update (not in use)
+### createYaml
 ___
-Update action is not used right now!
+
+createYaml action is used to create a new .yaml file.
+* [Create IPTV Playlist (.m3u file)](createYaml/README.md)

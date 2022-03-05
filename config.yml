@@ -2,7 +2,7 @@ actions:
   - create
   - update
 
-create:
+createM3u:
   entrypoint: init.sh
   scripts:
     - 1_download_yaml.sh
@@ -20,12 +20,12 @@ create:
       only_on_failure: true
       webhook: https://hooks.slack.com/services/xxx...
 
-update:
+createYaml:
   entrypoint: init.sh
   scripts:
     - 1_download.sh
-    - 2_replace.sh
-    - 3_upload.sh
+    - 2_create_channel_files.sh
+    - 3_combine.sh
   cleanup: cleanup.sh
   notify:
     at_start: false

@@ -13,6 +13,12 @@ if [[ $(_isSkippedStep "${__STEP}") == "0" ]]; then
   return "${SUCCESS}"
 fi
 
+function prepare() {
+  if [[ ! -d ${LOCAL_DIR} ]]; then
+    mkdir -p "${LOCAL_DIR}"
+  fi
+}
+
 function getRemoteStreamURL() {
   local id="${1}"
   local type="${2}"
@@ -104,4 +110,5 @@ function create() {
   __msg_green "File successfully created at: ${LOCAL_PATH}"
 }
 
+prepare
 create
